@@ -5,14 +5,10 @@ import Sidebar from '../sidebar';
 import { useState } from 'react';
 
 const LayoutComponent = () => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
     const isNonMobile = useMediaQuery('(min-width:600px)');
     return (
-        <Box
-            display={isNonMobile ? 'flex' : 'block'}
-            width="100%"
-            height="100%"
-        >
+        <Box display={isNonMobile ? 'flex' : 'block'}>
             <Sidebar
                 isNonMobile={isNonMobile}
                 drawerWidth="250px"
@@ -21,11 +17,11 @@ const LayoutComponent = () => {
             />
             <Box
                 display="flex"
-                width="100%"
+                flexGrow="1"
                 justifyContent="space-between"
                 flexDirection="column"
             >
-                <TopBarComponent />
+                <TopBarComponent setIsOpen={setIsOpen} />
                 <Outlet />
             </Box>
         </Box>
