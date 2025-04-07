@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router';
 import { Box } from '@mui/material';
-import { FC, JSX, useState } from 'react';
+import { FC, JSX } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import LoginPage from './login';
 import RegisterPage from './register';
@@ -9,25 +11,24 @@ import { instance } from '../../utils/axios/axios.ts';
 import { useAppDispatch } from '../../utils/hook';
 import { login } from '../../store/slice/auth';
 import { AppError } from '../../common/errors';
+import { LoginSchema, RegisterSchema } from '../../utils/yup';
 
 import './style.scss';
-import { useForm } from 'react-hook-form';
 
 const AuthRootComponent: FC = (): JSX.Element => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [email, setEmail] = useState('test@test.com');
-    const [password, setPassword] = useState('12345678');
-    const [repeatPassword, setRepeatPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [username, setUsername] = useState('');
 
     const {
         register,
         formState: { errors },
         handleSubmit,
-    } = useForm();
+    } = useForm({
+        resolver: yupResolver(
+            location.pathname === '/login' ? LoginSchema : RegisterSchema,
+        ),
+    });
 
     const handleSubmitForm = async (data: any) => {
         if (location.pathname === '/login') {
@@ -40,13 +41,13 @@ const AuthRootComponent: FC = (): JSX.Element => {
                 return e;
             }
         } else {
-            if (password === repeatPassword) {
+            if (data.password === data.repeatPassword) {
                 try {
                     const userData = {
-                        firstName,
-                        username,
-                        email,
-                        password,
+                        firstName: data.name,
+                        username: data.username,
+                        email: data.email,
+                        password: data.password,
                     };
                     const newUser = await instance.post(
                         '/auth/register',
@@ -78,15 +79,9 @@ const AuthRootComponent: FC = (): JSX.Element => {
                     boxShadow={'5px 5px 10px #ccc'}
                 >
                     {location.pathname === '/login' ? (
-                        <LoginPage register={register} errors={errors} />
+                        <LoginPage errors={errors} register={register} />
                     ) : location.pathname === '/register' ? (
-                        <RegisterPage
-                            setRepeatPassword={setRepeatPassword}
-                            setFirstName={setFirstName}
-                            setUsername={setUsername}
-                            setEmail={setEmail}
-                            setPassword={setPassword}
-                        />
+                        <RegisterPage errors={errors} register={register} />
                     ) : null}
                 </Box>
             </form>
