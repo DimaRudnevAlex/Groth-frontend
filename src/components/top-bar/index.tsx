@@ -8,18 +8,24 @@ import {
     Typography,
     useTheme,
 } from '@mui/material';
+import { FC } from 'react';
+
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import { tokens, useColorMode } from '../../theme';
-import { useStyles } from './styles.ts';
-import { useAppSelector } from '../../utils/hook';
-import { selectUser } from '../../store/slice/auth';
+
 import FlexBetween from '../flex-between';
 
-const TopBarComponent = (props: any) => {
+import { tokens, useColorMode } from '../../theme';
+import { useAppSelector } from '../../utils/hook';
+import { selectUser } from '../../store/slice/auth';
+import { ITopBarProps } from '../../common/types/topbar';
+
+import { useStyles } from './styles.ts';
+
+const TopBarComponent: FC<ITopBarProps> = (props) => {
     const { setIsOpen } = props;
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -30,6 +36,7 @@ const TopBarComponent = (props: any) => {
     return (
         <AppBar
             className={cl.root}
+            position="static"
             sx={{
                 background: `${colors.primary.DEFAULT} !important`,
                 borderBottom: `1px solid ${colors.borderColor}`,
@@ -39,7 +46,7 @@ const TopBarComponent = (props: any) => {
                 <FlexBetween>
                     <MenuOutlinedIcon
                         className={cl.menuIcon}
-                        onClick={() => setIsOpen((prev: boolean) => !prev)}
+                        onClick={() => setIsOpen((prev) => !prev)}
                     />
                     <Typography variant="h3">Welcome {firstName}</Typography>
                 </FlexBetween>
@@ -77,48 +84,6 @@ const TopBarComponent = (props: any) => {
                 </Box>
             </Toolbar>
         </AppBar>
-
-        // <Box
-        //     className={cl.root}
-        //     sx={{
-        //         backgroundColor: colors.primary.DEFAULT,
-        //         borderBottom: `1px solid ${colors.borderColor}`,
-        //     }}
-        // >
-        //     <Grid>Welcome {firstName}</Grid>
-        //     <Box display="flex" alignItems="center">
-        //         <Grid
-        //             className={cl.iconBlock}
-        //             sx={{ borderRight: `1px solid ${colors.borderColor}` }}
-        //         >
-        //             <IconButton
-        //                 onClick={colorMode.toggleColorMode}
-        //                 className={cl.themeIcon}
-        //             >
-        //                 {theme.palette.mode === 'dark' ? (
-        //                     <DarkModeIcon />
-        //                 ) : (
-        //                     <LightModeIcon />
-        //                 )}
-        //             </IconButton>
-        //             <IconButton>
-        //                 <NotificationsNoneIcon />
-        //             </IconButton>
-        //         </Grid>
-        //         <Grid
-        //             className={cl.searchBlock}
-        //             sx={{ backgroundColor: `${colors.primary[600]}` }}
-        //         >
-        //             <IconButton>
-        //                 <SearchIcon />
-        //             </IconButton>
-        //             <InputBase
-        //                 className={cl.searchInput}
-        //                 placeholder="Поиск..."
-        //             />
-        //         </Grid>
-        //     </Box>
-        // </Box>
     );
 };
 

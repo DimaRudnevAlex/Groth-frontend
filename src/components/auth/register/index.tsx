@@ -1,11 +1,14 @@
-import { Button, TextField, Typography } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { FC } from 'react';
 
 import { IPropsRegister } from '../../../common/types/auth';
 import { Link } from 'react-router';
+import AppButton from '../../app-button';
+import { useStyles } from './styles.ts';
 
 const RegisterPage: FC<IPropsRegister<any>> = (props) => {
     const { register, errors } = props;
+    const cl = useStyles();
 
     return (
         <>
@@ -79,21 +82,20 @@ const RegisterPage: FC<IPropsRegister<any>> = (props) => {
                     `${errors['repeatPassword'].message}`
                 }
             />
-            <Button
+            <AppButton
                 sx={{
                     fontFamily: 'Poppins',
-                    marginTop: 2,
+                    marginBlock: 2,
                     width: '60%',
-                    marginBottom: 2,
                 }}
                 variant="contained"
                 type="submit"
             >
                 Регистрация
-            </Button>
+            </AppButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 У вас есть аккаунт?
-                <Link to={'/login'} className="incitingText">
+                <Link to={'/login'} className={cl.incitingText}>
                     Авторизация
                 </Link>
             </Typography>

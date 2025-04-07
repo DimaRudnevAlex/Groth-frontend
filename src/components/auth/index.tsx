@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router';
 import { Box } from '@mui/material';
-import { FC, JSX } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -13,12 +13,13 @@ import { login } from '../../store/slice/auth';
 import { AppError } from '../../common/errors';
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
 
-import './style.scss';
+import { useStyles } from './styles.ts';
 
-const AuthRootComponent: FC = (): JSX.Element => {
+const AuthRootComponent: FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const cl = useStyles();
 
     const {
         register,
@@ -65,8 +66,8 @@ const AuthRootComponent: FC = (): JSX.Element => {
     };
 
     return (
-        <div className="root">
-            <form className="form" onSubmit={handleSubmit(handleSubmitForm)}>
+        <div className={cl.root}>
+            <form className={cl.form} onSubmit={handleSubmit(handleSubmitForm)}>
                 <Box
                     display="flex"
                     justifyContent="center"
@@ -79,9 +80,17 @@ const AuthRootComponent: FC = (): JSX.Element => {
                     boxShadow={'5px 5px 10px #ccc'}
                 >
                     {location.pathname === '/login' ? (
-                        <LoginPage errors={errors} register={register} />
+                        <LoginPage
+                            errors={errors}
+                            register={register}
+                            key="LoginPage"
+                        />
                     ) : location.pathname === '/register' ? (
-                        <RegisterPage errors={errors} register={register} />
+                        <RegisterPage
+                            errors={errors}
+                            register={register}
+                            key="RegisterPage"
+                        />
                     ) : null}
                 </Box>
             </form>

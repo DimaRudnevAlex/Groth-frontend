@@ -133,7 +133,7 @@ export const themeSettings: any = (mode: string) => {
     };
 };
 
-export const ColorModeContext: any = createContext(null);
+export const ColorModeContext = createContext<null>(null);
 
 export const useColorMode = () => useContext(ColorModeContext);
 

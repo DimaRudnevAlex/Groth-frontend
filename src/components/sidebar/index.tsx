@@ -1,29 +1,30 @@
 import {
     Box,
     Drawer,
-    // Divider,
     IconButton,
-    Typography,
-    useTheme,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    Typography,
+    useTheme,
 } from '@mui/material';
-
-import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
-// import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { FC } from 'react';
 
 import FlexBetween from '../flex-between';
 import MenuNavigate from './menu-navigate';
+
+import ChevronLeftOutlinedIcon from '@mui/icons-material/ChevronLeftOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import Logo from '../../assets/images/logo.svg';
+
 import { tokens } from '../../theme';
 
-import Logo from '../../assets/images/logo.svg';
 import { useStyles } from './styles.ts';
+import { ISidebarProps } from '../../common/types/sidebar';
 
-const Sidebar = (props: any) => {
+const Sidebar: FC<ISidebarProps> = (props) => {
     const { isNonMobile, drawerWidth, isOpen, setIsOpen } = props;
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
