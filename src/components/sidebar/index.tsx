@@ -31,7 +31,7 @@ const Sidebar = (props: any) => {
 
     return (
         <Box component="nav">
-            {isNonMobile && (
+            {isOpen && (
                 <Drawer
                     anchor="left"
                     open={isOpen}
