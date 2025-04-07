@@ -4,7 +4,7 @@ import { FC, JSX } from 'react';
 import { IPropsLogin } from '../../../common/types/auth';
 import { Link } from 'react-router';
 
-const LoginPage: FC<IPropsLogin> = (props): JSX.Element => {
+const LoginPage: FC<IPropsLogin<any>> = (props): JSX.Element => {
     const { register, errors } = props;
     return (
         <>
@@ -25,9 +25,7 @@ const LoginPage: FC<IPropsLogin> = (props): JSX.Element => {
                 margin="normal"
                 label="Email"
                 variant="filled"
-                {...register('email', {
-                    required: 'Это обязательное поле',
-                })}
+                {...register('email')}
                 placeholder="Введите ваш email"
                 helperText={!!errors['email'] && `${errors['email'].message}`}
             />
@@ -38,10 +36,7 @@ const LoginPage: FC<IPropsLogin> = (props): JSX.Element => {
                 margin="normal"
                 label="Password"
                 variant="filled"
-                {...register('password', {
-                    required: 'Это обязательное поле',
-                    minLength: 6,
-                })}
+                {...register('password')}
                 placeholder="Введите ваш пароль"
                 helperText={
                     !!errors['password'] && `${errors['password'].message}`

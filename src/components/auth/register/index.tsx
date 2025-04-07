@@ -4,14 +4,8 @@ import { FC } from 'react';
 import { IPropsRegister } from '../../../common/types/auth';
 import { Link } from 'react-router';
 
-const RegisterPage: FC<IPropsRegister> = (props) => {
-    const {
-        setFirstName,
-        setRepeatPassword,
-        setPassword,
-        setEmail,
-        setUsername,
-    } = props;
+const RegisterPage: FC<IPropsRegister<any>> = (props) => {
+    const { register, errors } = props;
 
     return (
         <>
@@ -27,46 +21,63 @@ const RegisterPage: FC<IPropsRegister> = (props) => {
                 Введите данные для регистрации
             </Typography>
             <TextField
+                error={!!errors['name']}
+                {...register('name')}
                 fullWidth={true}
                 margin="normal"
                 label="Name"
                 variant="outlined"
-                onChange={(e) => setFirstName(e.target.value)}
                 placeholder="Введите вашe имя"
+                helperText={!!errors['name'] && `${errors['name'].message}`}
             />
             <TextField
+                error={!!errors['username']}
+                {...register('username')}
                 fullWidth={true}
                 margin="normal"
                 label="Username"
                 variant="outlined"
-                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Введите ваш username"
+                helperText={
+                    !!errors['username'] && `${errors['username'].message}`
+                }
             />
             <TextField
+                error={!!errors['email']}
+                {...register('email')}
                 fullWidth={true}
                 margin="normal"
                 label="Email"
                 variant="outlined"
-                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Введите ваш email"
+                helperText={!!errors['email'] && `${errors['email'].message}`}
             />
             <TextField
+                error={!!errors['password']}
+                {...register('password')}
                 type="password"
                 fullWidth={true}
                 margin="normal"
                 label="Password"
                 variant="outlined"
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Введите ваш пароль"
+                helperText={
+                    !!errors['password'] && `${errors['password'].message}`
+                }
             />
             <TextField
+                error={!!errors['repeatPassword']}
+                {...register('repeatPassword')}
                 type="password"
                 fullWidth={true}
                 margin="normal"
                 label="Password"
                 variant="outlined"
-                onChange={(e) => setRepeatPassword(e.target.value)}
                 placeholder="Повторите ваш пароль"
+                helperText={
+                    !!errors['repeatPassword'] &&
+                    `${errors['repeatPassword'].message}`
+                }
             />
             <Button
                 sx={{
