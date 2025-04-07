@@ -8,16 +8,16 @@ import RegisterPage from './register';
 import { instance } from '../../utils/axios/axios.ts';
 import { useAppDispatch } from '../../utils/hook';
 import { login } from '../../store/slice/auth';
+import { AppError } from '../../common/errors';
 
 import './style.scss';
-import { AppError } from '../../common/errors';
 
 const AuthRootComponent: FC = (): JSX.Element => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('test@test.com');
+    const [password, setPassword] = useState('12345678');
     const [repeatPassword, setRepeatPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [username, setUsername] = useState('');
