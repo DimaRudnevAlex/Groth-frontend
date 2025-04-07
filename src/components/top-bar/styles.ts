@@ -2,7 +2,6 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles({
     root: {
-        position: 'static',
         boxShadow: 'none',
     },
     toolbar: {

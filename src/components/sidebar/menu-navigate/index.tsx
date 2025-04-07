@@ -1,8 +1,3 @@
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
-import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
-import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
-
 import {
     List,
     ListItem,
@@ -11,6 +6,12 @@ import {
     ListItemText,
     Typography,
 } from '@mui/material';
+
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import TimelineOutlinedIcon from '@mui/icons-material/TimelineOutlined';
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
+import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
+
 import CustomLink from '../custom-link';
 
 const navMenu = [

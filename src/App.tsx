@@ -5,10 +5,10 @@ import { ColorModeContext, useMode } from './theme';
 import PrivateRoute from './utils/router/privateRoute.tsx';
 import AuthRootComponent from './components/auth';
 
-import Home from './components/home';
-import Watchlist from './components/watchlist';
-import News from './components/news';
-import Settings from './components/settings';
+import Home from './pages/home';
+import Watchlist from './pages/watchlist';
+import News from './pages/news';
+import Settings from './pages/settings';
 
 function App() {
     const [colorMode, theme] = useMode();
