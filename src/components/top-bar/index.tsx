@@ -19,8 +19,6 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import FlexBetween from '../flex-between';
 
 import { tokens, useColorMode } from '../../theme';
-import { useAppSelector } from '../../utils/hook';
-import { selectUser } from '../../store/slice/auth';
 import { ITopBarProps } from '../../common/types/topbar';
 
 import { useStyles } from './styles.ts';
@@ -31,7 +29,7 @@ const TopBarComponent: FC<ITopBarProps> = (props) => {
     const colors = tokens(theme.palette.mode);
     const colorMode: any = useColorMode();
     const cl = useStyles();
-    const { firstName } = useAppSelector(selectUser)!;
+    const name = JSON.parse(sessionStorage.getItem('name')!);
 
     return (
         <AppBar
@@ -48,7 +46,7 @@ const TopBarComponent: FC<ITopBarProps> = (props) => {
                         className={cl.menuIcon}
                         onClick={() => setIsOpen((prev) => !prev)}
                     />
-                    <Typography variant="h3">Welcome {firstName}</Typography>
+                    <Typography variant="h3">Welcome, {name}</Typography>
                 </FlexBetween>
                 <Box display="flex" alignItems="center">
                     <Grid

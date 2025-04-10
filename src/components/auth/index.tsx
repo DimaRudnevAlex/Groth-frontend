@@ -6,19 +6,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import LoginPage from './login';
 import RegisterPage from './register';
-
-import { instance } from '../../utils/axios/axios.ts';
-import { useAppDispatch } from '../../utils/hook';
-import { login } from '../../store/slice/auth';
+import { useAppDispatch, useAppSelector } from '../../utils/hook';
 import { AppError } from '../../common/errors';
 import { LoginSchema, RegisterSchema } from '../../utils/yup';
 
 import { useStyles } from './styles.ts';
+import { loginUser, registerUser } from '../../store/thunks/auth';
+import { selectIsLoadingUser } from '../../store/slice/auth';
 
 const AuthRootComponent: FC = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const isLoading = useAppSelector(selectIsLoadingUser);
+
     const cl = useStyles();
 
     const {
@@ -34,9 +35,7 @@ const AuthRootComponent: FC = () => {
     const handleSubmitForm = async (data: any) => {
         if (location.pathname === '/login') {
             try {
-                const userData = { email: data.email, password: data.password };
-                const user = await instance.post('/auth/login', userData);
-                dispatch(login(user.data));
+                await dispatch(loginUser(data)).unwrap();
                 navigate('/');
             } catch (e) {
                 return e;
@@ -50,11 +49,7 @@ const AuthRootComponent: FC = () => {
                         email: data.email,
                         password: data.password,
                     };
-                    const newUser = await instance.post(
-                        '/auth/register',
-                        userData,
-                    );
-                    dispatch(login(newUser.data));
+                    await dispatch(registerUser(userData)).unwrap();
                     navigate('/');
                 } catch (e) {
                     return e;
@@ -81,15 +76,15 @@ const AuthRootComponent: FC = () => {
                 >
                     {location.pathname === '/login' ? (
                         <LoginPage
+                            isLoading={isLoading}
                             errors={errors}
                             register={register}
-                            key="LoginPage"
                         />
                     ) : location.pathname === '/register' ? (
                         <RegisterPage
+                            isLoading={isLoading}
                             errors={errors}
                             register={register}
-                            key="RegisterPage"
                         />
                     ) : null}
                 </Box>
