@@ -3,11 +3,11 @@ import { FC } from 'react';
 
 import { IPropsRegister } from '../../../common/types/auth';
 import { Link } from 'react-router';
-import AppButton from '../../app-button';
 import { useStyles } from './styles.ts';
+import AppLoadingButton from '../../loading-button';
 
 const RegisterPage: FC<IPropsRegister<any>> = (props) => {
-    const { register, errors } = props;
+    const { register, errors, isLoading } = props;
     const cl = useStyles();
 
     return (
@@ -82,17 +82,18 @@ const RegisterPage: FC<IPropsRegister<any>> = (props) => {
                     `${errors['repeatPassword'].message}`
                 }
             />
-            <AppButton
+            <AppLoadingButton
                 sx={{
                     fontFamily: 'Poppins',
                     marginBlock: 2,
                     width: '60%',
                 }}
+                loading={isLoading}
                 variant="contained"
                 type="submit"
             >
                 Регистрация
-            </AppButton>
+            </AppLoadingButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 У вас есть аккаунт?
                 <Link to={'/login'} className={cl.incitingText}>

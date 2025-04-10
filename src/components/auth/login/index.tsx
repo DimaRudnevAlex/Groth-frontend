@@ -4,10 +4,10 @@ import { FC } from 'react';
 import { IPropsLogin } from '../../../common/types/auth';
 import { Link } from 'react-router';
 import { useStyles } from './styles.ts';
-import AppButton from '../../app-button';
+import AppLoadingButton from '../../loading-button';
 
 const LoginPage: FC<IPropsLogin<any>> = (props) => {
-    const { register, errors } = props;
+    const { register, errors, isLoading } = props;
     const cl = useStyles();
 
     return (
@@ -51,7 +51,8 @@ const LoginPage: FC<IPropsLogin<any>> = (props) => {
                     !!errors['password'] && `${errors['password'].message}`
                 }
             />
-            <AppButton
+            <AppLoadingButton
+                loading={isLoading}
                 sx={{
                     fontFamily: 'Poppins',
                     marginBlock: 2,
@@ -61,7 +62,7 @@ const LoginPage: FC<IPropsLogin<any>> = (props) => {
                 variant="contained"
             >
                 Войти
-            </AppButton>
+            </AppLoadingButton>
             <Typography variant="body1" sx={{ fontFamily: 'Poppins' }}>
                 У вас нет аккаунта?
                 <Link to={'/register'} className={cl.incitingText}>
