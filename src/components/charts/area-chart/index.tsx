@@ -25,8 +25,6 @@ ChartJS.register(
     Legend,
 );
 const optionsIntl: Intl.DateTimeFormatOptions = {
-    hour: 'numeric',
-    minute: 'numeric',
     day: 'numeric',
     month: 'long',
     year: 'numeric',
