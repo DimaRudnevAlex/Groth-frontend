@@ -38,8 +38,8 @@ const Home = () => {
     }, [dispatch, favoriteAssetName, fetchData]);
 
     const renderFavoriteBlock = favoriteAssets.map((item: any) => {
-        const currentPrice = item.data.prices[0];
-        const currentCap = item.data.market_caps[0];
+        const currentPrice = item.singleAsset[0].current_price;
+        const currentCap = item.singleAsset[0].market_cap_change_percentage_24h;
         return (
             <Grid key={item.name} size={{ xs: 12, sm: 6, lg: 6 }}>
                 <Grid
@@ -54,18 +54,20 @@ const Home = () => {
                         <h3 className={cl.assetName}>{item.name}</h3>
                         <div className={cl.itemDetail}>
                             <h3 className={cl.cardPrice}>
-                                {currentPrice[1].toFixed(2)}
+                                {currentPrice.toFixed()} USD
                             </h3>
                             <p
                                 className={cl.cardCapitalize}
-                                style={{ color: `${colors.secondary.DEFAULT}` }}
+                                style={{
+                                    color: `${currentCap < 0 ? 'red' : 'green'}`,
+                                }}
                             >
-                                {currentCap[1].toFixed(0)}
+                                {currentCap.toFixed(5)} %
                             </p>
                         </div>
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, lg: 6 }}>
-                        <AreaChart data={item.data.prices} />
+                        <AreaChart data={item.data} />
                     </Grid>
                 </Grid>
             </Grid>
