@@ -74,7 +74,7 @@ const AreaChart: FC<IAreaChartProps> = (props) => {
             },
         ],
     };
-    return <Line options={options} data={values} />;
+    return <Line options={options} data={values} updateMode="resize" />;
 };
 
 export default AreaChart;

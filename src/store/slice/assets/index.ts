@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getFavoriteAssets } from '../../thunks/assets';
 import { RootState } from '../../index.ts';
+import { IIAssetsState } from '../../../common/types/assets';
 
-const initialState: any = {
+const initialState: IIAssetsState = {
     assets: [],
     favoriteAssets: [],
 };
@@ -14,7 +15,7 @@ export const assetsSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(getFavoriteAssets.fulfilled, (state, action: any) => {
             const repeatName = action.payload.name;
-            if (state.favoriteAssets.find((el: any) => repeatName === el.name))
+            if (state.favoriteAssets.find((el) => repeatName === el.name))
                 return state;
             state.favoriteAssets.push(action.payload);
         });

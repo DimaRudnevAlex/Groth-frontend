@@ -33,4 +33,12 @@ export const useStyles = makeStyles({
         fontSize: 18,
         lineHeight: '21px',
     },
+    areaChart: {
+        marginBottom: 32,
+    },
+    lineChartBlock: {
+        padding: '20px 16px',
+        minHeight: 270,
+        borderRadius: '12px',
+    },
 });

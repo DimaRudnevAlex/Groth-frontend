@@ -7,6 +7,7 @@ import { Box, Grid, useTheme } from '@mui/material';
 import { useStyles } from './styles.ts';
 import { tokens } from '../../theme';
 import AreaChart from '../../components/charts/area-chart';
+import LineChart from '../../components/charts/linechart';
 
 const Home = () => {
     const dispatch = useAppDispatch();
@@ -37,7 +38,7 @@ const Home = () => {
         };
     }, [dispatch, favoriteAssetName, fetchData]);
 
-    const renderFavoriteBlock = favoriteAssets.map((item: any) => {
+    const renderFavoriteBlock = favoriteAssets.map((item) => {
         const currentPrice = item.singleAsset[0].current_price;
         const currentCap = item.singleAsset[0].market_cap_change_percentage_24h;
         return (
@@ -76,8 +77,26 @@ const Home = () => {
 
     return (
         <Box className={cl.root}>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} className={cl.areaChart}>
                 {renderFavoriteBlock}
+            </Grid>
+            <Grid
+                container
+                className={cl.lineChartBlock}
+                sx={{
+                    backgroundColor: `${
+                        theme.palette.mode === 'light'
+                            ? colors.primary.DEFAULT
+                            : colors.primary[600]
+                    }`,
+                    border: `1px solid ${colors.borderColor}`,
+                }}
+            >
+                <Grid size={{ xs: 12, sm: 12, lg: 12 }}>
+                    {favoriteAssets.length && (
+                        <LineChart data={favoriteAssets} />
+                    )}
+                </Grid>
             </Grid>
         </Box>
     );
