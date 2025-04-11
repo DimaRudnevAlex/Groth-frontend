@@ -6,6 +6,7 @@ import { selectFavoriteAssets } from '../../store/slice/assets';
 import { Box, Grid, useTheme } from '@mui/material';
 import { useStyles } from './styles.ts';
 import { tokens } from '../../theme';
+import AreaChart from '../../components/charts/area-chart';
 
 const Home = () => {
     const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ const Home = () => {
                         </div>
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, lg: 6 }}>
-                        <h5>Chart</h5>
+                        <AreaChart data={item.data.prices} />
                     </Grid>
                 </Grid>
             </Grid>
