@@ -93,7 +93,7 @@ const Home = () => {
                 }}
             >
                 <Grid size={{ xs: 12, sm: 12, lg: 12 }}>
-                    {favoriteAssets.length && (
+                    {!!favoriteAssets.length && (
                         <LineChart data={favoriteAssets} />
                     )}
                 </Grid>
