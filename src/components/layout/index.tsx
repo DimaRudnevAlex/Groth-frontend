@@ -6,13 +6,9 @@ import { useState } from 'react';
 
 const LayoutComponent = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const isNonMobile = useMediaQuery('(min-width:600px)');
+    const isNonMobile = useMediaQuery('(min-width:800px)');
     return (
-        <Box
-            display={isNonMobile ? 'flex' : 'block'}
-            width="100%"
-            height="100%"
-        >
+        <Box display={'block'} width="100%" height="100%">
             <Sidebar
                 isNonMobile={isNonMobile}
                 drawerWidth="250px"
@@ -25,7 +21,10 @@ const LayoutComponent = () => {
                 justifyContent="space-between"
                 flexDirection="column"
             >
-                <TopBarComponent setIsOpen={setIsOpen} />
+                <TopBarComponent
+                    setIsOpen={setIsOpen}
+                    isNonMobile={isNonMobile}
+                />
                 <Outlet />
             </Box>
         </Box>
