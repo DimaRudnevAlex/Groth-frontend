@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getFavoriteAssets } from '../../thunks/assets';
+import { getFavoriteAssets, getTopPricesData } from '../../thunks/assets';
 import { RootState } from '../../index.ts';
-import { IIAssetsState } from '../../../common/types/assets';
+import { IAssetsState } from '../../../common/types/assets';
 
-const initialState: IIAssetsState = {
+const initialState: IAssetsState = {
     assets: [],
     favoriteAssets: [],
 };
@@ -19,10 +19,17 @@ export const assetsSlice = createSlice({
                 return state;
             state.favoriteAssets.push(action.payload);
         });
+        builder.addCase(getTopPricesData.fulfilled, (state, action: any) => {
+            state.assets = action.payload
+                .slice(0, 6)
+                .sort((a: any, b: any) => b.current_price - a.current_price);
+        });
     },
 });
 
 export const selectFavoriteAssets = (state: RootState) =>
     state.assets.favoriteAssets;
+
+export const selectAssets = (state: RootState) => state.assets.assets;
 
 export default assetsSlice.reducer;

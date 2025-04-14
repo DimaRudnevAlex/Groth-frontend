@@ -31,9 +31,17 @@ const optionsIntl: Intl.DateTimeFormatOptions = {
 const LineChart: FC<ILineChartProps> = ({ data }) => {
     const options = {
         responsive: true,
+        scales: {
+            x: {
+                display: false,
+                grid: {
+                    display: false,
+                },
+            },
+        },
         plugins: {
             legend: {
-                display: false,
+                position: 'top' as const,
             },
         },
     };
@@ -44,7 +52,9 @@ const LineChart: FC<ILineChartProps> = ({ data }) => {
         ),
         datasets: [
             {
-                label: 'Цена: ',
+                label:
+                    data[0].name.charAt(0).toUpperCase() +
+                    data[0].name.slice(1),
                 data: data[0].data.map((elem) => elem[1]),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
