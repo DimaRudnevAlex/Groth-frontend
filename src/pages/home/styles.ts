@@ -40,5 +40,17 @@ export const useStyles = makeStyles({
         padding: '20px 16px',
         minHeight: 270,
         borderRadius: '12px',
+        marginBottom: 32,
+    },
+    topPriceRoot: {
+        padding: '20px 16px',
+        marginBottom: 32,
+        minHeight: 270,
+        borderRadius: 12,
+        '& .MuiPaper-root': {
+            backgroundColor: 'transparent !important',
+            boxShadow: 'none !important',
+            backgroundImage: 'none !important',
+        },
     },
 });

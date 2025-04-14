@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react';
-
-import { getFavoriteAssets } from '../../store/thunks/assets';
-import { useAppDispatch, useAppSelector } from '../../utils/hook';
-import { selectFavoriteAssets } from '../../store/slice/assets';
 import { Box, Grid, useTheme } from '@mui/material';
-import { useStyles } from './styles.ts';
-import { tokens } from '../../theme';
+
+import { getFavoriteAssets, getTopPricesData } from '../../store/thunks/assets';
+import { useAppDispatch, useAppSelector } from '../../utils/hook';
+import { selectAssets, selectFavoriteAssets } from '../../store/slice/assets';
+
 import AreaChart from '../../components/charts/area-chart';
 import LineChart from '../../components/charts/linechart';
+
+import { useStyles } from './styles.ts';
+import { tokens } from '../../theme';
+import TopPriceComponent from '../../components/top-price';
 
 const Home = () => {
     const dispatch = useAppDispatch();
     const favoriteAssets = useAppSelector(selectFavoriteAssets);
+    const assets = useAppSelector(selectAssets);
     const fetchDataRef = useRef(false);
 
     const theme = useTheme();
@@ -30,13 +34,11 @@ const Home = () => {
     );
 
     useEffect(() => {
-        if (!fetchDataRef.current) {
-            fetchData(favoriteAssetName);
-        }
-        return () => {
-            fetchDataRef.current = true;
-        };
-    }, [dispatch, favoriteAssetName, fetchData]);
+        if (fetchDataRef.current) return;
+        fetchDataRef.current = true;
+        fetchData(favoriteAssetName);
+        dispatch(getTopPricesData());
+    }, [favoriteAssetName, fetchData, dispatch]);
 
     const renderFavoriteBlock = favoriteAssets.map((item) => {
         const currentPrice = item.singleAsset[0].current_price;
@@ -96,6 +98,22 @@ const Home = () => {
                     {!!favoriteAssets.length && (
                         <LineChart data={favoriteAssets} />
                     )}
+                </Grid>
+            </Grid>
+            <Grid
+                container
+                className={cl.topPriceRoot}
+                sx={{
+                    backgroundColor: `${
+                        theme.palette.mode === 'light'
+                            ? colors.primary.DEFAULT
+                            : colors.primary[600]
+                    }`,
+                    border: `1px solid ${colors.borderColor}`,
+                }}
+            >
+                <Grid size={{ xs: 12, sm: 12, lg: 12 }}>
+                    <TopPriceComponent assets={assets} />
                 </Grid>
             </Grid>
         </Box>
