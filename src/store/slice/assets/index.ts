@@ -21,7 +21,7 @@ export const assetsSlice = createSlice({
         });
         builder.addCase(getTopPricesData.fulfilled, (state, action: any) => {
             state.assets = action.payload
-                .slice(0, 6)
+                .slice(0, 20)
                 .sort((a: any, b: any) => b.current_price - a.current_price);
         });
     },

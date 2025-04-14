@@ -12,19 +12,4 @@ export const useStyles = makeStyles({
         marginRight: '10px',
         cursor: 'pointer',
     },
-    iconBlock: {
-        paddingRight: '37px',
-    },
-    themeIcon: {
-        marginRight: '45px',
-    },
-    searchBlock: {
-        display: 'flex',
-        maxHeight: '48px',
-        borderRadius: '8px',
-        marginLeft: '28px',
-    },
-    searchInput: {
-        padding: '18px 12px',
-    },
 });

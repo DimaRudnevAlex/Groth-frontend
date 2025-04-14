@@ -23,9 +23,11 @@ import { tokens } from '../../theme';
 
 import { useStyles } from './styles.ts';
 import { ISidebarProps } from '../../common/types/sidebar';
+import ThemeSwitcher from '../theme-switcher';
+import SearchBar from '../search-bar';
 
 const Sidebar: FC<ISidebarProps> = (props) => {
-    const { isNonMobile, drawerWidth, isOpen, setIsOpen } = props;
+    const { drawerWidth, isOpen, setIsOpen, isNonMobile } = props;
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const cl = useStyles();
@@ -67,19 +69,29 @@ const Sidebar: FC<ISidebarProps> = (props) => {
                                         BtcInfo
                                     </Typography>
                                 </Box>
-                                {!isNonMobile && (
-                                    <IconButton
-                                        onClick={() => setIsOpen(!isOpen)}
-                                    >
-                                        <ChevronLeftOutlinedIcon />
-                                    </IconButton>
-                                )}
+                                <IconButton onClick={() => setIsOpen(!isOpen)}>
+                                    <ChevronLeftOutlinedIcon />
+                                </IconButton>
                             </FlexBetween>
                         </Box>
+                        {!isNonMobile && (
+                            <List>
+                                <ListItem>
+                                    <SearchBar />
+                                </ListItem>
+                            </List>
+                        )}
                         <MenuNavigate />
                     </Box>
                     <Box width="100%">
                         <List>
+                            {!isNonMobile && (
+                                <ListItem>
+                                    <Box padding="5px">
+                                        <ThemeSwitcher />
+                                    </Box>
+                                </ListItem>
+                            )}
                             <ListItem>
                                 <ListItemButton>
                                     <ListItemIcon>

@@ -48,6 +48,7 @@ const Home = () => {
                 <Grid
                     className={cl.topCardItem}
                     container
+                    height="100%"
                     sx={{
                         border: `1px solid ${colors.borderColor}`,
                         backgroundColor: `${theme.palette.mode === 'light' ? colors.primary.DEFAULT : colors.primary[600]}`,
